@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+</head>
+
+<body>
+    <h2>Welcome To GFG</h2>
+    <p>
+        Default code has been
+        loaded into the Editor.
+
+        <button id="genPoem" onclick="generateText('Lion', 'story')">
+    Generate Poem
+  </button>
+        
+    </p>
+</body>
+<script>
+    async function generateText(prompt, type) {
+        const buttonId = type === "story" ? "genStory" : "genPoem";
+        const resultId = type === "story" ? "storyResult" : "poemResult";
+        const original = type === "story" ? "Generate Story" : "Generate Poem";
+
+        showSpinner(buttonId);
+
+        try {
+            const model = CONFIG.models[type];
+            const tokenInput = getToken();
+            const token = tokenInput || (CONFIG.demoMode.headers.Authorization || "").replace("token value", "");
+            const forceDemo = document.getElementById('forceDemo').checked;
+
+            if (!token || forceDemo) {
+                showDemoIndicator();
+                throw new Error("Demo mode active");
+            }
+
+            // 🧩 Temporary CORS bypass proxy
+            const proxy = "https://cors-anywhere.herokuapp.com/";
+            const apiUrl = `https://api-inference.huggingface.co/models/${model}`;
+
+            // NOTE: You must first visit https://cors-anywhere.herokuapp.com/ and click "Request temporary access"
+            const response = await fetch(proxy + apiUrl, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    inputs: prompt,
+                    parameters: {
+                        max_new_tokens: type === "story" ? 250 : 120,
+                        temperature: 0.9,
+                        top_p: 0.9,
+                        do_sample: true
+                    }
+                })
+            });
+
+
+            if (!response.ok) throw new Error(`API Error: ${response.status}`);
+
+            const data = await response.json();
+            let result = data[0]?.generated_text || data.generated_text || "No result generated.";
+            if (result.startsWith(prompt)) result = result.substring(prompt.length).trim();
+
+            showResult(resultId, `<strong>${type.toUpperCase()}:</strong><br><br>${result}`);
+            showDemoIndicator(false);
+
+        } catch (err) {
+            console.warn("⚠️ Using demo mode fallback:", err.message);
+            showDemoIndicator();
+
+            const fallback = {
+                story: "Once upon a time, a traveler discovered that courage can change destiny.",
+                poem: "Beneath the stars’ eternal glow,\nThe river whispers soft and low."
+            }[type];
+
+            showResult(resultId, `<strong>${type.toUpperCase()} (Demo):</strong><br><br>${fallback}`);
+        }
+
+        hideSpinner(buttonId, original);
+    }
+
+</script>
+
+</html>

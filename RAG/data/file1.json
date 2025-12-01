@@ -1,0 +1,73 @@
+{
+  "institute_name": "Sunrise Institute of Technology & Management",
+  "institute_code": "SITM-2025",
+  "location": "Pune, Maharashtra, India",
+  "established": 2008,
+  "courses": [
+    {
+      "name": "Bachelor of Computer Science",
+      "code": "BCSC-101",
+      "duration": "3 Years",
+      "semesters": 6,
+      "eligibility": "12th pass with mathematics",
+      "fees": "₹75,000 per year",
+      "total_seats": 120
+    },
+    {
+      "name": "Bachelor of Business Administration",
+      "code": "BBA-201",
+      "duration": "3 Years",
+      "semesters": 6,
+      "eligibility": "12th pass (any stream)",
+      "fees": "₹65,000 per year",
+      "total_seats": 90
+    },
+    {
+      "name": "Master of Computer Applications",
+      "code": "MCA-301",
+      "duration": "2 Years",
+      "semesters": 4,
+      "eligibility": "BCA or any bachelor's degree + Math",
+      "fees": "₹95,000 per year",
+      "total_seats": 60
+    },
+    {
+      "name": "Data Science & Analytics (Diploma)",
+      "code": "DS-401",
+      "duration": "1 Year",
+      "semesters": 1,
+      "eligibility": "12th pass",
+      "fees": "₹45,000",
+      "total_seats": 80
+    }
+  ],
+  "students": [
+    {
+      "name": "Priya Sharma",
+      "enrollment_no": "SITM-BBA-23-001",
+      "course": "BBA-201",
+      "year": "2nd Year",
+      "contact": "9876543201",
+      "fees_paid": "₹65,000",
+      "fees_pending": "₹0"
+    },
+    {
+      "name": "Rajat Kumar",
+      "enrollment_no": "SITM-CS-24-057",
+      "course": "BCSC-101",
+      "year": "1st Year",
+      "contact": "9876543211",
+      "fees_paid": "₹40,000",
+      "fees_pending": "₹35,000"
+    },
+    {
+      "name": "Sneha Patil",
+      "enrollment_no": "SITM-MCA-22-011",
+      "course": "MCA-301",
+      "year": "3rd Semester",
+      "contact": "9821456712",
+      "fees_paid": "₹95,000",
+      "fees_pending": "₹0"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini AI Chat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .message {
+      white-space: pre-wrap; /* 👈 preserves line breaks and formatting */
+      word-wrap: break-word;
+    }
+    .chat-box {
+      height: 400px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-lg">
+    <h1 class="text-2xl font-bold text-center mb-6 text-blue-700">💬 Mini AI Chat</h1>
+
+    <!-- Chat Display Area -->
+    <div id="chatBox" class="chat-box border rounded-lg bg-gray-50 p-4 mb-4">
+      <div class="text-gray-400 text-center text-sm">Start chatting with AI...</div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="flex">
+      <textarea id="userInput" rows="2" placeholder="Ask me anything..."
+        class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+      <button id="generateBtn"
+        class="ml-3 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const input = document.getElementById("userInput");
+    const button = document.getElementById("generateBtn");
+
+    function appendMessage(content, sender = "user") {
+      const msg = document.createElement("div");
+      msg.classList.add("message", "p-2", "rounded-lg", "my-2", "max-w-[80%]");
+      
+      if (sender === "user") {
+        msg.classList.add("bg-blue-100", "self-end", "ml-auto");
+        msg.innerHTML = `<strong>You:</strong><br>${content}`;
+      } else {
+        msg.classList.add("bg-gray-200");
+        msg.innerHTML = `<strong>AI:</strong><br>${content}`;
+      }
+
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    button.addEventListener("click", async () => {
+      const prompt = input.value.trim();
+      if (!prompt) return;
+
+      appendMessage(prompt, "user");
+      input.value = "";
+
+      appendMessage("Thinking...", "ai");
+
+      try {
+        const response = await fetch("/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt }),
+        });
+        const data = await response.json();
+
+        // Remove the "Thinking..." placeholder
+        chatBox.lastChild.remove();
+
+        if (data.response) {
+          // Replace double newlines with paragraph breaks
+          const formatted = data.response
+            .replace(/\n{2,}/g, "\n\n")
+            .replace(/\n/g, "<br>");
+          appendMessage(formatted, "ai");
+        } else {
+          appendMessage("⚠️ Error: " + (data.error || "Unknown error"), "ai");
+        }
+      } catch (err) {
+        chatBox.lastChild.remove();
+        appendMessage("❌ Something went wrong while connecting to the server.", "ai");
+      }
+    });
+
+    // Press Enter to send
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        button.click();
+      }
+    });
+  </script>
+</body>
+</html>

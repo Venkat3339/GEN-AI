@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake Store Products</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1 class="title">Fake Store Product List</h1>
+
+    <div class="product-container">
+        {% for item in products %}
+        <div class="card">
+            <img src="{{ item.image }}" alt="{{ item.title }}">
+            <h3>{{ item.title }}</h3>
+            <p>${{ item.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

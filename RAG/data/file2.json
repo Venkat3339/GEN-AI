@@ -1,0 +1,73 @@
+{
+  "institute_name": "Green Valley College of Engineering & Research",
+  "institute_code": "GVCER-2030",
+  "location": "Indore, Madhya Pradesh, India",
+  "established": 2012,
+  "courses": [
+    {
+      "name": "B.Tech Computer Science Engineering",
+      "code": "BTECH-CSE-101",
+      "duration": "4 Years",
+      "semesters": 8,
+      "eligibility": "12th pass with PCM",
+      "fees": "₹90,000 per year",
+      "total_seats": 180
+    },
+    {
+      "name": "B.Tech Mechanical Engineering",
+      "code": "BTECH-ME-102",
+      "duration": "4 Years",
+      "semesters": 8,
+      "eligibility": "12th pass with PCM",
+      "fees": "₹85,000 per year",
+      "total_seats": 120
+    },
+    {
+      "name": "Bachelor of Computer Applications",
+      "code": "BCA-201",
+      "duration": "3 Years",
+      "semesters": 6,
+      "eligibility": "12th pass",
+      "fees": "₹60,000 per year",
+      "total_seats": 100
+    },
+    {
+      "name": "Robotics & Automation (PG Diploma)",
+      "code": "RA-401",
+      "duration": "1 Year",
+      "semesters": 1,
+      "eligibility": "Any engineering diploma or degree",
+      "fees": "₹55,000",
+      "total_seats": 50
+    }
+  ],
+  "students": [
+    {
+      "name": "Naman Verma",
+      "enrollment_no": "GVCER-CSE-22-046",
+      "course": "BTECH-CSE-101",
+      "year": "3rd Year",
+      "contact": "9822345671",
+      "fees_paid": "₹90,000",
+      "fees_pending": "₹0"
+    },
+    {
+      "name": "Anjali Gupta",
+      "enrollment_no": "GVCER-BCA-24-009",
+      "course": "BCA-201",
+      "year": "1st Year",
+      "contact": "9876543210",
+      "fees_paid": "₹30,000",
+      "fees_pending": "₹30,000"
+    },
+    {
+      "name": "Mohammad Irfan",
+      "enrollment_no": "GVCER-ME-23-087",
+      "course": "BTECH-ME-102",
+      "year": "2nd Year",
+      "contact": "9812347700",
+      "fees_paid": "₹85,000",
+      "fees_pending": "₹0"
+    }
+  ]
+}
